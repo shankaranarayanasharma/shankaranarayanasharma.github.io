@@ -5,7 +5,7 @@ class Skill {
   final int percentage;
 
   Skill({
-    @required this.skill,
-    @required this.percentage,
+    required this.skill,
+    required this.percentage,
   });
 }

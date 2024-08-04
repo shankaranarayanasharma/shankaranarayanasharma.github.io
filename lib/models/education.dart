@@ -6,8 +6,8 @@ class Education {
   final String period;
 
   Education({
-    @required this.description,
-    @required this.linkName,
-    @required this.period,
+    required this.description,
+    required this.linkName,
+    required this.period,
   });
 }

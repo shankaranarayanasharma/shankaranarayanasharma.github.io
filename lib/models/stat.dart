@@ -5,7 +5,7 @@ class Stat {
   final String text;
 
   Stat({
-    @required this.count,
-    @required this.text,
+    required this.count,
+    required this.text,
   });
 }
