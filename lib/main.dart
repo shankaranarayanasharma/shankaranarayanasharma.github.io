@@ -1,42 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_profile/screens/home/home_screen.dart';
+import 'package:flutter_profile/screens/main/main_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-import 'package:web_portfolio/pages/home/home.dart';
-import 'package:web_portfolio/utils/constants.dart';
+
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Flutter Portfolio",
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
-      darkTheme: Theme.of(context).copyWith(
-        platform: TargetPlatform.android,
-        scaffoldBackgroundColor: kBackgroundColor,
-        primaryColor: kPrimaryColor,
-        canvasColor: kBackgroundColor,
-        textTheme: GoogleFonts.latoTextTheme(),
+      title: 'iOS Application Developer | Flutter Developer',
+      // we are using dark theme and we modify it as our need
+      theme: ThemeData.dark().copyWith(
+        primaryColor: primaryColor,
+        scaffoldBackgroundColor: bgColor,
+        canvasColor: bgColor,
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white)
+            .copyWith(
+              bodyLarge: TextStyle(color: bodyTextColor),
+              bodyMedium: TextStyle(color: bodyTextColor),
+            ),
       ),
-      builder: (context, widget) => ResponsiveWrapper.builder(
-        ClampingScrollWrapper.builder(context, widget ?? Container()),
-        defaultScale: true,
-        breakpoints: [
-          ResponsiveBreakpoint.resize(450, name: MOBILE),
-          ResponsiveBreakpoint.resize(800, name: TABLET),
-          ResponsiveBreakpoint.resize(1000, name: TABLET),
-          ResponsiveBreakpoint.resize(1200, name: DESKTOP),
-          ResponsiveBreakpoint.resize(2460, name: "4K"),
-        ],
-        background: Container(
-          color: kBackgroundColor,
-        ),
-      ),
-      home: Home(),
+      home: HomeScreen(),
     );
   }
 }

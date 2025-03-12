@@ -1,4 +1,4 @@
-name: web_portfolio
+name: flutter_profile
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -18,20 +18,21 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: 
-  responsive_framework: ^0.2.0  # flutter_icons: 
-  smooth_page_indicator: 
-  carousel_slider: ^4.2.1
-  font_awesome_flutter:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.17
+  animated_text_kit: ^4.2.1
+  url_launcher: ^6.3.1
+  font_awesome_flutter: ^10.8.0
+  scroll_to_index:
 
 dev_dependencies:
   flutter_test:
@@ -49,8 +50,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/
-  #   - images/a_dot_ham.jpeg
+    - assets/icons/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
