@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_profile/constants.dart';
 import 'package:flutter_profile/responsive.dart';
-import 'package:flutter_profile/screens/experience/exp_model.dart';
 import 'package:flutter_profile/screens/experience/exp_widget.dart';
 
 class ExperienceScreen extends StatefulWidget {
@@ -12,8 +11,6 @@ class ExperienceScreen extends StatefulWidget {
 }
 
 class _ExperienceScreenState extends State<ExperienceScreen> {
-
-
   bool showAll = true;
 
   @override
@@ -28,15 +25,28 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Professional Journey",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     "These are the places where my technical career unfolded.",
                     style: TextStyle(
-                      color: Color.fromRGBO(163, 163, 163, 1.0),
+                      color: const Color.fromRGBO(163, 163, 163, 1.0),
                       fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
                       fontWeight: Theme.of(context).textTheme.bodyMedium!.fontWeight,
                     ),
@@ -54,27 +64,27 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                 },
                 style: TextButton.styleFrom(
                     elevation: 0,
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         horizontal: defaultPadding * 2,
                         vertical: defaultPadding),
                     backgroundColor: Colors.transparent),
                 child: Text(
-                  "View All ->",
-                  style: TextStyle(color: Colors.white),
+                  showAll ? "View Less <-" : "View All ->",
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
           ],
         ),
         const SizedBox(height: defaultPadding),
-        Responsive(
-          mobile: ExperienceGridView(
-            crossAxisCount: 1,
-            childAspectRatio: 1.7,
+        Column(
+          children: List.generate(
+            showAll ? PortfolioData.experiences.length : 2,
+            (index) => TimelineExperienceCard(
+              exp: PortfolioData.experiences[index],
+              isLast: index == (showAll ? PortfolioData.experiences.length - 1 : 1),
+            ),
           ),
-          mobileLarge: ExperienceGridView(crossAxisCount: 2),
-          tablet: ExperienceGridView(childAspectRatio: 1.1),
-          desktop: ExperienceGridView(staticCount: showAll ? 2 : null,),
-        )
+        ),
       ],
     );
   }

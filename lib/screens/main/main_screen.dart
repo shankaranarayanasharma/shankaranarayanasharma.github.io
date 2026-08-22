@@ -4,54 +4,221 @@ import 'package:flutter_profile/responsive.dart';
 
 import 'components/side_menu.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key, required this.children}) : super(key: key);
 
   final List<Widget> children;
 
   @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final ScrollController _scrollController = ScrollController();
+  final List<GlobalKey> _sectionKeys = List.generate(6, (index) => GlobalKey());
+  int _activeSectionIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    const int lastNavIndex = 4; // Contact is the last nav item
+
+    // If we're at (or very near) the bottom, always select the last tab
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 50) {
+      if (_activeSectionIndex != lastNavIndex) {
+        setState(() {
+          _activeSectionIndex = lastNavIndex;
+        });
+      }
+      return;
+    }
+
+    int newIndex = 0;
+    double closestOffset = double.infinity;
+
+    for (int i = 0; i < _sectionKeys.length; i++) {
+      final keyContext = _sectionKeys[i].currentContext;
+      if (keyContext == null) continue;
+
+      final renderBox = keyContext.findRenderObject() as RenderBox?;
+      if (renderBox == null) continue;
+
+      // Get the section's position relative to the scroll view
+      final scrollViewContext =
+          _scrollController.position.context.storageContext;
+      final scrollRenderBox =
+          scrollViewContext.findRenderObject() as RenderBox?;
+      if (scrollRenderBox == null) continue;
+
+      final sectionOffset =
+          renderBox.localToGlobal(Offset.zero, ancestor: scrollRenderBox);
+
+      // Find the section whose top is closest to (and at/above) the visible area top
+      final distanceFromTop = sectionOffset.dy.abs();
+      if (sectionOffset.dy <= 120 && distanceFromTop < closestOffset) {
+        closestOffset = distanceFromTop;
+        newIndex = i;
+      }
+    }
+
+    if (newIndex != _activeSectionIndex) {
+      setState(() {
+        _activeSectionIndex = newIndex;
+      });
+    }
+  }
+
+
+  void scrollToSection(int index) {
+    final keyContext = _sectionKeys[index].currentContext;
+    if (keyContext != null) {
+      Scrollable.ensureVisible(
+        keyContext,
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOutCubic,
+      );
+    }
+  }
+
+  Widget buildNavigationMenu() {
+    final menuItems = ["About", "Projects", "Experience", "Skills", "Contact"];
+    final sectionIndexMapping = [0, 1, 2, 3, 4];
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFF242426),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: borderColor, width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(menuItems.length, (index) {
+          final isSelected = _activeSectionIndex == index;
+          return MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _activeSectionIndex = index;
+                });
+                scrollToSection(sectionIndexMapping[index]);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Text(
+                  menuItems[index],
+                  style: TextStyle(
+                    color: isSelected ? primaryColor : Colors.white,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final double horizontalMargin = Responsive.isMobile(context) ? 12 : 24;
+    final double verticalMargin = Responsive.isMobile(context) ? 12 : 24;
+
     return Scaffold(
-      // We hide the appbar on desktop
+      backgroundColor: bgColor,
       appBar: Responsive.isDesktop(context)
           ? null
           : AppBar(
-              backgroundColor: bgColor,
+              backgroundColor: secondaryColor,
+              elevation: 0,
               leading: Builder(
                 builder: (context) => IconButton(
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  icon: Icon(Icons.menu),
+                  icon: const Icon(Icons.menu, color: Colors.white),
                 ),
               ),
             ),
-      drawer: SideMenu(),
+      drawer: const SideMenu(),
       body: Center(
         child: Container(
-          margin: const EdgeInsets.all(40),
-          constraints: BoxConstraints(maxWidth: maxWidth),
+          margin: EdgeInsets.symmetric(
+            horizontal: horizontalMargin,
+            vertical: verticalMargin,
+          ),
+          constraints: const BoxConstraints(maxWidth: maxWidth),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (Responsive.isDesktop(context))
-                Expanded(
+                const Expanded(
                   flex: 2,
                   child: SideMenu(),
                 ),
-              SizedBox(width: defaultPadding),
+              if (Responsive.isDesktop(context))
+                const SizedBox(width: defaultPadding),
               Expanded(
                 flex: 7,
-                child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ...children,
-                        // our footer
-                      ],
-                    ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: secondaryColor,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: borderColor, width: 1),
+                  ),
+                  child: Column(
+                    children: [
+                      if (Responsive.isDesktop(context))
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                            defaultPadding * 1.5,
+                            defaultPadding * 1.5,
+                            defaultPadding * 1.5,
+                            0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              buildNavigationMenu(),
+                            ],
+                          ),
+                        ),
+                      Expanded(
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context)
+                              .copyWith(scrollbars: false),
+                          child: SingleChildScrollView(
+                            controller: _scrollController,
+                            padding: const EdgeInsets.all(defaultPadding * 1.5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(
+                                widget.children.length,
+                                (index) => Container(
+                                  key: _sectionKeys[index],
+                                  child: widget.children[index],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

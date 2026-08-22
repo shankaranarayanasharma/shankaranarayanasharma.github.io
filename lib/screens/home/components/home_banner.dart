@@ -1,157 +1,224 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile/responsive.dart';
-
 import '../../../constants.dart';
+import 'heighlights.dart';
 
 class HomeBanner extends StatelessWidget {
-  const HomeBanner({
-    Key? key,
-  }) : super(key: key);
+  const HomeBanner({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: Responsive.isMobile(context) ? 2.5 : 3,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            "assets/images/bg.jpeg",
-            fit: BoxFit.cover,
+    const double cardSpacing = 16.0;
+    Widget serviceCards;
+
+    if (Responsive.isMobile(context)) {
+      serviceCards = Column(
+        children: const [
+          ServiceCard(
+            icon: Icons.smartphone_rounded,
+            title: AppStrings.serviceMobileTitle,
+            description: AppStrings.serviceMobileDesc,
           ),
-          Container(color: darkColor.withOpacity(0.66)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Bringing Ideas to Life with iOS &\nFlutter Development",
-                  style: Responsive.isDesktop(context)
-                      ? Theme.of(context).textTheme.displaySmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          )
-                      : Theme.of(context).textTheme.headlineSmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                ),
-                if (Responsive.isMobileLarge(context))
-                  const SizedBox(height: defaultPadding / 2)
-                else 
-                    const SizedBox(height: defaultPadding),
-                // MyBuildAnimatedText(),
-                Text(
-                  "Specializing in native iOS development for iPhone and iPad, along with cross-platform\nFlutter solutions for seamless user experiences",
-                  style: Responsive.isDesktop(context)
-                      ? Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
-                          )
-                      : Theme.of(context).textTheme.titleSmall!.copyWith(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white,
-                          ),
-                ),
-                SizedBox(height: defaultPadding),
-                if (!Responsive.isMobileLarge(context))
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: defaultPadding * 2,
-                          vertical: defaultPadding),
-                      backgroundColor: primaryColor,
-                    ),
-                    child: Text(
-                      "EXPLORE NOW",
-                      style: TextStyle(color: darkColor),
-                    ),
-                  ),
-                  
-              ],
-            ),
-          )
+          SizedBox(height: cardSpacing),
+          ServiceCard(
+            icon: Icons.code_rounded,
+            title: AppStrings.serviceWebTitle,
+            description: AppStrings.serviceWebDesc,
+          ),
+          SizedBox(height: cardSpacing),
+          ServiceCard(
+            icon: Icons.design_services_outlined,
+            title: AppStrings.serviceUiTitle,
+            description: AppStrings.serviceUiDesc,
+          ),
+          SizedBox(height: cardSpacing),
+          ServiceCard(
+            icon: Icons.dns_rounded,
+            title: AppStrings.serviceBackendTitle,
+            description: AppStrings.serviceBackendDesc,
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class MyBuildAnimatedText extends StatelessWidget {
-  const MyBuildAnimatedText({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTextStyle(
-      // it applies same style to all the widgets under it
-      style: Theme.of(context).textTheme.titleMedium!,
-      maxLines: 1,
-      child: Row(
+      );
+    } else {
+      serviceCards = Column(
         children: [
-          if (!Responsive.isMobileLarge(context)) FlutterCodedText(),
-          if (!Responsive.isMobileLarge(context))
-            SizedBox(width: defaultPadding / 2),
-          Text("I build "),
-          Responsive.isMobile(context)
-              ? Expanded(child: AnimatedText())
-              : AnimatedText(),
-          if (!Responsive.isMobileLarge(context))
-            SizedBox(width: defaultPadding / 2),
-          if (!Responsive.isMobileLarge(context)) FlutterCodedText(),
+          Row(
+            children: const [
+              Expanded(
+                child: ServiceCard(
+                  icon: Icons.smartphone_rounded,
+                  title: AppStrings.serviceMobileTitle,
+                  description: AppStrings.serviceMobileDesc,
+                ),
+              ),
+              SizedBox(width: cardSpacing),
+              Expanded(
+                child: ServiceCard(
+                  icon: Icons.code_rounded,
+                  title: AppStrings.serviceWebTitle,
+                  description: AppStrings.serviceWebDesc,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: cardSpacing),
+          Row(
+            children: const [
+              Expanded(
+                child: ServiceCard(
+                  icon: Icons.design_services_outlined,
+                  title: AppStrings.serviceUiTitle,
+                  description: AppStrings.serviceUiDesc,
+                ),
+              ),
+              SizedBox(width: cardSpacing),
+              Expanded(
+                child: ServiceCard(
+                  icon: Icons.dns_rounded,
+                  title: AppStrings.serviceBackendTitle,
+                  description: AppStrings.serviceBackendDesc,
+                ),
+              ),
+            ],
+          ),
         ],
-      ),
-    );
-  }
-}
+      );
+    }
 
-class AnimatedText extends StatelessWidget {
-  const AnimatedText({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedTextKit(
-      animatedTexts: [
-        TyperAnimatedText(
-          "responsive web and mobile app.",
-          speed: Duration(milliseconds: 60),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          AppStrings.aboutMe,
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
-        TyperAnimatedText(
-          "complete e-Commerce app UI.",
-          speed: Duration(milliseconds: 60),
+        const SizedBox(height: 8),
+        Container(
+          width: 36,
+          height: 4,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(2),
+          ),
         ),
-        TyperAnimatedText(
-          "Chat app with dark and light theme.",
-          speed: Duration(milliseconds: 60),
+        const SizedBox(height: 24),
+        const Text(
+          AppStrings.aboutMeParagraph1,
+          style: TextStyle(
+            fontSize: 14,
+            color: bodyTextColor,
+            height: 1.6,
+          ),
         ),
+        const SizedBox(height: 16),
+        const Text(
+          AppStrings.aboutMeParagraph2,
+          style: TextStyle(
+            fontSize: 14,
+            color: bodyTextColor,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          AppStrings.aboutMeParagraph3,
+          style: TextStyle(
+            fontSize: 14,
+            color: bodyTextColor,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          AppStrings.aboutMeParagraph4,
+          style: TextStyle(
+            fontSize: 14,
+            color: bodyTextColor,
+            height: 1.6,
+          ),
+        ),
+        const SizedBox(height: 32),
+        const HighLightsInfo(),
+        const SizedBox(height: 40),
+        const Text(
+          AppStrings.whatImDoing,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          width: 36,
+          height: 4,
+          decoration: BoxDecoration(
+            color: primaryColor,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+        const SizedBox(height: 20),
+        serviceCards,
+        const SizedBox(height: 24),
       ],
     );
   }
 }
 
-class FlutterCodedText extends StatelessWidget {
-  const FlutterCodedText({
+class ServiceCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String description;
+
+  const ServiceCard({
     Key? key,
+    required this.icon,
+    required this.title,
+    required this.description,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(
-      TextSpan(
-        text: "<",
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: const Color(0xFF212124),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: borderColor, width: 1),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextSpan(
-            text: "flutter",
-            style: TextStyle(color: primaryColor),
+          Icon(icon, color: primaryColor, size: 32),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Colors.white70,
+                    height: 1.5,
+                  ),
+                ),
+              ],
+            ),
           ),
-          TextSpan(text: ">"),
         ],
       ),
     );

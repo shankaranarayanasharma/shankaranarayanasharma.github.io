@@ -27,7 +27,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  google_fonts: ^6.2.1
+  google_fonts: ^6.3.3
   flutter_svg: ^2.0.17
   animated_text_kit: ^4.2.1
   url_launcher: ^6.3.1
@@ -52,6 +52,28 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/images/loader/
+    - assets/images/richie_rich/
+    - assets/images/richie_rich/android/
+    - assets/images/all_calculator/
+    - assets/images/all_calculator/android/
+    - assets/images/all_calculator/tablet/
+    - assets/images/parking_sthal/
+    - assets/images/parking_sthal/android/
+    - assets/images/ai_octopus/
+    - assets/images/call_pik/
+    - assets/images/cheerish/
+    - assets/images/clovemind_care/
+    - assets/images/clovemind_provider/
+    - assets/images/hakika_banking_app/
+    - assets/images/listen2re/
+    - assets/images/pave/
+    - assets/images/forager_pro/
+    - assets/images/forager_pro/android/
+    - assets/images/to_share/
+    - assets/images/to_share/android/
+    - assets/images/tix_alert/
+    - assets/images/tix_alert/android/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

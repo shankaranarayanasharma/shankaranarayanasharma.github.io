@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_profile/models/Recommendation.dart';
-
 import '../../../constants.dart';
 
 class RecommendationCard extends StatelessWidget {

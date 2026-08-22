@@ -1,108 +1,160 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_profile/constants.dart';
-import 'package:flutter_profile/screens/experience/exp_model.dart';
 
-class ExperienceCard extends StatelessWidget {
-  const ExperienceCard({
+class TimelineExperienceCard extends StatefulWidget {
+  const TimelineExperienceCard({
     Key? key,
     required this.exp,
+    required this.isLast,
   }) : super(key: key);
 
   final Experience exp;
+  final bool isLast;
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Color(0xFF242430),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: Colors.grey.withOpacity(0.5))),
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child:exp.icon,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          exp.title,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 5),
-                  Text(exp.company,
-                      style: const TextStyle(color: Colors.grey, fontSize: 16)),
-                  Text("${exp.duration} · ${exp.type}",
-                      style: const TextStyle(color: Colors.grey, fontSize: 14)),
-                  Text(exp.location,
-                      style: const TextStyle(color: Colors.grey, fontSize: 14)),
-                  const SizedBox(height: 10),
-                  Divider(),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: exp.skills
-                        .map((skill) => Chip(
-                          backgroundColor: Color(0xFF242430)  ,
-                          side: BorderSide.none,
-                              label: Text(
-                                skill,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  State<TimelineExperienceCard> createState() => _TimelineExperienceCardState();
 }
 
-class ExperienceGridView extends StatelessWidget {
-  const ExperienceGridView({
-    Key? key,
-    this.crossAxisCount = 2,
-    this.childAspectRatio = 2,
-    this.staticCount,
-  }) : super(key: key);
-
-  final int crossAxisCount;
-  final double childAspectRatio;
-  final int? staticCount;
+class _TimelineExperienceCardState extends State<TimelineExperienceCard> {
+  bool isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: staticCount ?? experiences.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        childAspectRatio: childAspectRatio,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-      ),
-      itemBuilder: (context, index) => ExperienceCard(
-        exp: experiences[index],
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Left column: Timeline Indicator node and connecting vertical path line
+          Column(
+            children: [
+              // Company icon node or fallback briefcase icon
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1E1E22),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: isHovered ? primaryColor : borderColor,
+                    width: 1.5,
+                  ),
+                ),
+                padding: const EdgeInsets.all(8),
+                child: ClipOval(
+                  child: widget.exp.icon is Container
+                      ? const Icon(
+                          Icons.work_outline,
+                          color: primaryColor,
+                          size: 20,
+                        )
+                      : widget.exp.icon,
+                ),
+              ),
+              // Vertical connecting timeline line
+              if (!widget.isLast)
+                Expanded(
+                  child: Container(
+                    width: 2,
+                    color: borderColor,
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(width: 24),
+          // Right column: Detailed card with job description and information
+          Expanded(
+            child: MouseRegion(
+              onEnter: (_) => setState(() => isHovered = true),
+              onExit: (_) => setState(() => isHovered = false),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                margin: const EdgeInsets.only(bottom: 24),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: isHovered
+                      ? const Color(0xFF2B2B2E) // Hover highlight charcoal color
+                      : const Color(0xFF1E1E22), // Standard card color
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: isHovered ? primaryColor : borderColor,
+                    width: 1,
+                  ),
+                  boxShadow: isHovered
+                      ? [
+                          BoxShadow(
+                            color: primaryColor.withOpacity(0.05),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ]
+                      : null,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Job Title and Duration Row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.exp.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          widget.exp.duration,
+                          style: const TextStyle(
+                            color: primaryColor,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    // Subtitle containing: Company, Location, Type
+                    Text(
+                      "${widget.exp.company.isNotEmpty ? '${widget.exp.company} · ' : ''}${widget.exp.location}${widget.exp.type.isNotEmpty ? ' · ${widget.exp.type}' : ''}",
+                      style: const TextStyle(
+                        color: bodyTextColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // List of Skill Chips tags
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: widget.exp.skills
+                          .map((skill) => Chip(
+                                backgroundColor: const Color(0xFF2B2B2C),
+                                side: BorderSide.none,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 4),
+                                label: Text(
+                                  skill,
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
