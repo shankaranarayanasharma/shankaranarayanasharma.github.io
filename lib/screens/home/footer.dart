@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_profile/responsive.dart';
 import 'package:flutter_profile/viewmodels/contact_viewmodel.dart';
 import '../../constants.dart';
+import 'components/contact_form_fields.dart';
 
 class DS8Footer extends StatefulWidget {
   const DS8Footer({Key? key}) : super(key: key);
@@ -23,61 +24,6 @@ class _DS8FooterState extends State<DS8Footer> {
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
 
-    // Form inputs column
-    final formColumn = Column(
-      children: [
-        TextField(
-          controller: _viewModel.nameController,
-          style: const TextStyle(color: Colors.white, fontSize: 14),
-          decoration: const InputDecoration(
-            labelText: AppStrings.nameLabel,
-            labelStyle: TextStyle(color: Colors.grey, fontSize: 13),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: borderColor, width: 1),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: primaryColor, width: 1),
-            ),
-            contentPadding: EdgeInsets.symmetric(vertical: 8),
-          ),
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: _viewModel.emailController,
-          style: const TextStyle(color: Colors.white, fontSize: 14),
-          decoration: const InputDecoration(
-            labelText: AppStrings.emailLabelInput,
-            labelStyle: TextStyle(color: Colors.grey, fontSize: 13),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: borderColor, width: 1),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: primaryColor, width: 1),
-            ),
-            contentPadding: EdgeInsets.symmetric(vertical: 8),
-          ),
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: _viewModel.messageController,
-          maxLines: 3,
-          style: const TextStyle(color: Colors.white, fontSize: 14),
-          decoration: const InputDecoration(
-            labelText: AppStrings.messageLabel,
-            labelStyle: TextStyle(color: Colors.grey, fontSize: 13),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: borderColor, width: 1),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: primaryColor, width: 1),
-            ),
-            contentPadding: EdgeInsets.symmetric(vertical: 8),
-          ),
-        ),
-      ],
-    );
-
-    // Left title + button column
     final titleAndButton = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -158,7 +104,7 @@ class _DS8FooterState extends State<DS8Footer> {
               children: [
                 titleAndButton,
                 const SizedBox(height: 40),
-                formColumn,
+                ContactFormFields(viewModel: _viewModel),
               ],
             )
           else
@@ -167,11 +113,10 @@ class _DS8FooterState extends State<DS8Footer> {
               children: [
                 Expanded(child: titleAndButton),
                 const SizedBox(width: 60),
-                Expanded(child: formColumn),
+                Expanded(child: ContactFormFields(viewModel: _viewModel)),
               ],
             ),
           const SizedBox(height: 80),
-          // Footer Name & Copyright
           Align(
             alignment: Alignment.center,
             child: Column(

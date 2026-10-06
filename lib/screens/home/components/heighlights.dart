@@ -21,7 +21,7 @@ class _HighLightsInfoState extends State<HighLightsInfo> {
     // List of stat items defined in the reference mockup
     final items = [
       _buildStatItem(
-        valueWidget: const AnimatedStatNumber(value: 13, suffix: "+"),
+        valueWidget: const AnimatedStatNumber(value: 12, suffix: "+"),
         label: "YEARS",
       ),
       _buildStatItem(

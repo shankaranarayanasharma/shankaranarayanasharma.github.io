@@ -1,210 +1,20 @@
-enum NarrativeBlockType { heading, paragraph, points, image, images, video }
+import 'engineering_challenge.dart';
+import 'narrative_block.dart';
+import 'project_media_parser.dart';
 
-class NarrativeBlock {
-  final NarrativeBlockType type;
-  final String? text;
-  final List<String>? items;
-  final String? iconStyle;
-  final String? url;
-  final List<String>? urls;
-  final String? caption;
-
-  NarrativeBlock({
-    required this.type,
-    this.text,
-    this.items,
-    this.iconStyle,
-    this.url,
-    this.urls,
-    this.caption,
-  });
-
-  static List<NarrativeBlock> fromRaw(dynamic raw) {
-    if (raw == null) return [];
-
-    if (raw is List) {
-      final blocks = <NarrativeBlock>[];
-      for (final item in raw) {
-        if (item is Map<String, dynamic> || item is Map) {
-          final map = Map<String, dynamic>.from(item);
-          final typeStr = map['type']?.toString().toLowerCase() ?? 'paragraph';
-          if (typeStr == 'heading' ||
-              typeStr == 'title' ||
-              typeStr == 'subheading') {
-            blocks.add(NarrativeBlock(
-              type: NarrativeBlockType.heading,
-              text: map['text']?.toString() ??
-                  map['title']?.toString() ??
-                  map['heading']?.toString() ??
-                  '',
-            ));
-          } else if (typeStr == 'points' || typeStr == 'bullets') {
-            blocks.add(NarrativeBlock(
-              type: NarrativeBlockType.points,
-              items: List<String>.from(map['items'] ?? map['points'] ?? []),
-              iconStyle: map['iconStyle']?.toString(),
-            ));
-          } else if (typeStr == 'image') {
-            blocks.add(NarrativeBlock(
-              type: NarrativeBlockType.image,
-              url: map['url']?.toString() ?? map['image']?.toString(),
-              caption: map['caption']?.toString(),
-            ));
-          } else if (typeStr == 'images') {
-            blocks.add(NarrativeBlock(
-              type: NarrativeBlockType.images,
-              urls: List<String>.from(map['urls'] ?? map['images'] ?? []),
-              caption: map['caption']?.toString(),
-            ));
-          } else if (typeStr == 'video') {
-            blocks.add(NarrativeBlock(
-              type: NarrativeBlockType.video,
-              url: map['url']?.toString() ?? map['video']?.toString(),
-              caption: map['caption']?.toString(),
-            ));
-          } else {
-            blocks.add(NarrativeBlock(
-              type: NarrativeBlockType.paragraph,
-              text: map['text']?.toString() ??
-                  map['content']?.toString() ??
-                  map['overview']?.toString() ??
-                  '',
-            ));
-          }
-        } else if (item is String) {
-          blocks.add(NarrativeBlock(
-            type: NarrativeBlockType.paragraph,
-            text: item,
-          ));
-        }
-      }
-      return blocks;
-    }
-
-    if (raw is Map) {
-      final map = Map<String, dynamic>.from(raw);
-      final blocks = <NarrativeBlock>[];
-      if (map.containsKey('heading') || map.containsKey('subheading')) {
-        final h = (map['heading'] ?? map['subheading'])?.toString();
-        if (h != null && h.isNotEmpty) {
-          blocks.add(NarrativeBlock(
-            type: NarrativeBlockType.heading,
-            text: h,
-          ));
-        }
-      }
-      if (map.containsKey('overview') ||
-          map.containsKey('text') ||
-          map.containsKey('description')) {
-        final txt =
-            (map['overview'] ?? map['text'] ?? map['description'])?.toString();
-        if (txt != null && txt.isNotEmpty) {
-          blocks.add(NarrativeBlock(
-            type: NarrativeBlockType.paragraph,
-            text: txt,
-          ));
-        }
-      }
-      if (map.containsKey('video')) {
-        final v = map['video']?.toString();
-        if (v != null && v.isNotEmpty) {
-          blocks.add(NarrativeBlock(
-            type: NarrativeBlockType.video,
-            url: v,
-            caption: map['caption']?.toString(),
-          ));
-        }
-      }
-      if (map.containsKey('points') || map.containsKey('items')) {
-        final pts = List<String>.from(map['points'] ?? map['items'] ?? []);
-        if (pts.isNotEmpty) {
-          blocks.add(NarrativeBlock(
-            type: NarrativeBlockType.points,
-            items: pts,
-            iconStyle: map['iconStyle']?.toString(),
-          ));
-        }
-      }
-      if (map.containsKey('image') || map.containsKey('url')) {
-        final u = (map['image'] ?? map['url'])?.toString();
-        if (u != null && u.isNotEmpty) {
-          blocks.add(NarrativeBlock(
-            type: NarrativeBlockType.image,
-            url: u,
-            caption: map['caption']?.toString(),
-          ));
-        }
-      }
-      if (blocks.isNotEmpty) return blocks;
-    }
-
-    if (raw is String && raw.trim().isNotEmpty) {
-      return [
-        NarrativeBlock(
-          type: NarrativeBlockType.paragraph,
-          text: raw,
-        )
-      ];
-    }
-
-    return [];
-  }
-}
-
-class EngineeringChallenge {
-  final String? number;
-  final String title;
-  final String? problem;
-  final String? approach;
-  final String? code;
-  final String? codeLanguage;
-  final String? image;
-  final List<NarrativeBlock> blocks;
-
-  EngineeringChallenge({
-    this.number,
-    required this.title,
-    this.problem,
-    this.approach,
-    this.code,
-    this.codeLanguage,
-    this.image,
-    this.blocks = const [],
-  });
-
-  factory EngineeringChallenge.fromRaw(dynamic raw, int index) {
-    final defaultNum = index + 1 < 10 ? '0${index + 1}' : '${index + 1}';
-    if (raw is Map<String, dynamic> || raw is Map) {
-      final map = Map<String, dynamic>.from(raw);
-      return EngineeringChallenge(
-        number: map['number']?.toString() ?? defaultNum,
-        title: map['title']?.toString() ?? 'Engineering Challenge',
-        problem: map['problem']?.toString() ?? map['description']?.toString(),
-        approach: map['approach']?.toString() ?? map['solution']?.toString(),
-        code: map['code']?.toString() ?? map['snippet']?.toString(),
-        codeLanguage:
-            map['codeLanguage']?.toString() ?? map['language']?.toString(),
-        image: map['image']?.toString() ?? map['url']?.toString(),
-        blocks: map['blocks'] != null
-            ? NarrativeBlock.fromRaw(map['blocks'])
-            : [],
-      );
-    }
-    return EngineeringChallenge(
-      number: defaultNum,
-      title: 'Engineering Challenge',
-      problem: raw?.toString(),
-    );
-  }
-}
+export 'engineering_challenge.dart';
+export 'narrative_block.dart';
 
 class Project {
   final String title;
   final String description;
   final String image;
   final List<String> categories;
-  final List<String> media; // image or video URLs
-  final Map<String, List<String>>? mediaByPlatform; // platform-specific media URLs
+  final List<String> media;
+  final Map<String, List<String>>? mediaByPlatform;
+
+  /// Whether the gallery media already contains a device bezel/mockup.
+  final bool mediaHasBezel;
   final List<String> technologies;
   final String? github;
   final String? playStore;
@@ -216,10 +26,8 @@ class Project {
 
   final List<String>? pointByPointSections;
 
-  // Engineering Challenges Section
   final List<EngineeringChallenge> engineeringChallenges;
 
-  // Block-based Narrative Fields
   final List<NarrativeBlock> backstoryBlocks;
   final List<NarrativeBlock> myRoleBlocks;
   final List<NarrativeBlock> challengeBlocks;
@@ -236,6 +44,7 @@ class Project {
     required this.categories,
     required this.media,
     this.mediaByPlatform,
+    this.mediaHasBezel = false,
     required this.technologies,
     this.github,
     this.playStore,
@@ -284,58 +93,20 @@ class Project {
           .toList();
     }
 
-    Map<String, List<String>>? parsedMediaByPlatform;
-    if (json['mediaByPlatform'] is Map) {
-      parsedMediaByPlatform = {};
-      (json['mediaByPlatform'] as Map).forEach((k, v) {
-        if (v is List) {
-          parsedMediaByPlatform![k.toString()] =
-              List<String>.from(v.map((e) => e.toString()));
-        }
-      });
-    } else {
-      final rawMedia = List<String>.from(json['media'] ?? []);
-      final autoGrouped = <String, List<String>>{};
-      for (final path in rawMedia) {
-        final lower = path.toLowerCase();
-        String? platformKey;
-        if (lower.contains('/android/') ||
-            lower.contains('_android') ||
-            lower.contains('-android')) {
-          platformKey = "Android";
-        } else if (lower.contains('/iphone/') ||
-            lower.contains('/ios/') ||
-            lower.contains('_iphone') ||
-            lower.contains('_ios')) {
-          platformKey = "iPhone";
-        } else if (lower.contains('/ipad/') || lower.contains('_ipad')) {
-          platformKey = "iPad";
-        } else if (lower.contains('/tablet/') || lower.contains('_tablet')) {
-          platformKey = "Tablet";
-        } else if (lower.contains('/macos/') ||
-            lower.contains('/mac/') ||
-            lower.contains('_mac')) {
-          platformKey = "Mac OS";
-        } else if (lower.contains('/web/') || lower.contains('_web')) {
-          platformKey = "Web";
-        }
-
-        if (platformKey != null) {
-          autoGrouped.putIfAbsent(platformKey, () => []).add(path);
-        }
-      }
-      if (autoGrouped.isNotEmpty) {
-        parsedMediaByPlatform = autoGrouped;
-      }
-    }
+    final rawMedia = List<String>.from(json['media'] ?? []);
+    final parsedMediaByPlatform = ProjectMediaParser.parseMediaByPlatform(
+      json['mediaByPlatform'],
+      rawMedia,
+    );
 
     return Project(
       title: json['title'] as String,
       description: json['description'] as String,
       image: json['image'] as String,
       categories: List<String>.from(json['categories'] ?? []),
-      media: List<String>.from(json['media'] ?? []),
+      media: rawMedia,
       mediaByPlatform: parsedMediaByPlatform,
+      mediaHasBezel: json['mediaHasBezel'] == true,
       technologies: List<String>.from(json['technologies'] ?? []),
       github: json['github'] as String?,
       playStore: json['playStore'] as String?,
@@ -359,7 +130,6 @@ class Project {
     );
   }
 
-  // Legacy string getters for backward compatibility
   String? get backstory => _blocksToString(backstoryBlocks);
   String? get myRole => _blocksToString(myRoleBlocks);
   String? get challenge => _blocksToString(challengeBlocks);

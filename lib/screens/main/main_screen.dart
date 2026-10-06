@@ -3,6 +3,7 @@ import 'package:flutter_profile/constants.dart';
 import 'package:flutter_profile/responsive.dart';
 
 import 'components/side_menu.dart';
+import 'components/top_navigation_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key, required this.children}) : super(key: key);
@@ -34,7 +35,6 @@ class _MainScreenState extends State<MainScreen> {
   void _onScroll() {
     const int lastNavIndex = 4; // Contact is the last nav item
 
-    // If we're at (or very near) the bottom, always select the last tab
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 50) {
       if (_activeSectionIndex != lastNavIndex) {
@@ -55,7 +55,6 @@ class _MainScreenState extends State<MainScreen> {
       final renderBox = keyContext.findRenderObject() as RenderBox?;
       if (renderBox == null) continue;
 
-      // Get the section's position relative to the scroll view
       final scrollViewContext =
           _scrollController.position.context.storageContext;
       final scrollRenderBox =
@@ -65,7 +64,6 @@ class _MainScreenState extends State<MainScreen> {
       final sectionOffset =
           renderBox.localToGlobal(Offset.zero, ancestor: scrollRenderBox);
 
-      // Find the section whose top is closest to (and at/above) the visible area top
       final distanceFromTop = sectionOffset.dy.abs();
       if (sectionOffset.dy <= 120 && distanceFromTop < closestOffset) {
         closestOffset = distanceFromTop;
@@ -80,7 +78,6 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-
   void scrollToSection(int index) {
     final keyContext = _sectionKeys[index].currentContext;
     if (keyContext != null) {
@@ -92,52 +89,11 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Widget buildNavigationMenu() {
-    final menuItems = ["About", "Projects", "Experience", "Skills", "Contact"];
-    final sectionIndexMapping = [0, 1, 2, 3, 4];
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFF242426),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: borderColor, width: 1),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(menuItems.length, (index) {
-          final isSelected = _activeSectionIndex == index;
-          return MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  _activeSectionIndex = index;
-                });
-                scrollToSection(sectionIndexMapping[index]);
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Text(
-                  menuItems[index],
-                  style: TextStyle(
-                    color: isSelected ? primaryColor : Colors.white,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final double horizontalMargin = Responsive.isMobile(context) ? 12 : 24;
     final double verticalMargin = Responsive.isMobile(context) ? 12 : 24;
+    final sectionIndexMapping = [0, 1, 2, 3, 4];
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -194,7 +150,15 @@ class _MainScreenState extends State<MainScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              buildNavigationMenu(),
+                              TopNavigationBar(
+                                activeSectionIndex: _activeSectionIndex,
+                                onSelectSection: (index) {
+                                  setState(() {
+                                    _activeSectionIndex = index;
+                                  });
+                                  scrollToSection(sectionIndexMapping[index]);
+                                },
+                              ),
                             ],
                           ),
                         ),

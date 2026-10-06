@@ -10,7 +10,7 @@ class PortfolioData {
       duration: "Dec 2021 - Present",
       location: "Bengaluru · Remote",
       type: "",
-      skills: ["Flutter", "Swift", "Swift UI", "Firebase"],
+      skills: ["Flutter", "Swift", "SwiftUI", "Firebase", "Google Maps", "OpenStreetMaps", "Razorpay", "Google AdMob"],
       icon: Container(),
     ),
     Experience(
@@ -19,7 +19,7 @@ class PortfolioData {
       duration: "Dec 2019 - Dec 2021",
       location: "Bengaluru",
       type: "Full Time",
-      skills: ["Flutter", "Swift", "Firebase"],
+      skills: ["Flutter", "Swift", "Firebase", "Google Maps", "Razorpay"],
       icon: Image.asset("assets/images/isoftcell.png"),
     ),
     Experience(
@@ -46,7 +46,7 @@ class PortfolioData {
       duration: "Nov 2016 - Dec 2017",
       location: "Chennai",
       type: "Full Time",
-      skills: ["Swift", "Firebase"],
+      skills: ["Swift", "Firebase", "Google Maps"],
       icon: Image.asset("assets/images/madeByfire.png"),
     ),
     Experience(
@@ -176,6 +176,12 @@ class PortfolioData {
        }
      ]
   ═════════════════════════════════════════════════════════════════════════════
+
+  Gallery bezel option (per project):
+  - Set "mediaHasBezel": true when every gallery image already includes its
+    own device bezel/mockup. The gallery and full-screen preview will not add
+    a second default device frame.
+  - Omit it, or set it to false, to use the default platform frame.
   */
   static const List<Map<String, dynamic>> projectsJson = [
     {
@@ -191,14 +197,14 @@ Smooth app experience for quick ordering.""",
       "image": "assets/images/richie_rich/richie_rich.png",
       "categories": ["Flutter"],
       "media": [],
-      "technologies": ["Flutter", "Firebase", "REST API"],
+      "technologies": ["Flutter", "Firebase", "REST API", "RazorPay"],
       "github": null,
       "playStore":
           "https://play.google.com/store/apps/details?id=com.richierichicecreams.resturent_app&pcampaignid=web_share",
       "appStore":
           "https://apps.apple.com/in/app/richie-rich-icecreams/id6563153090",
       "year": "2026",
-      "role": "Software Developer",
+      "role": "Freelancer",
       "projectType": "Mobile App",
       "backstory":
           "Richie Rich was an existing Flutter-based restaurant application that required significant technical and functional improvements. The application had multiple UI issues, push notification problems, API-related bugs, outdated platform configurations, and a poorly structured codebase without a clear architectural pattern. The project focused on stabilizing the existing application, improving its maintainability, upgrading the technology stack, and preparing reliable builds for both Android and iOS.",
@@ -270,7 +276,13 @@ Tired of switching between different apps for math, loans, and health? All Calcu
       "image": "assets/images/all_calculator/all_calculator.png",
       "categories": ["Flutter"],
       "media": [],
-      "technologies": ["Flutter", "Firebase", "REST API", "Google AdMob"],
+      "technologies": [
+        "Flutter",
+        "Firebase",
+        "Remote Config",
+        "REST API",
+        "Google AdMob"
+      ],
       "github": null,
       "playStore":
           "https://play.google.com/store/apps/details?id=app.smartcalcstudio.calc",
@@ -350,7 +362,7 @@ Privacy: Don’t want to reveal your face? Choose an avatar for your profile pic
 Note: Our app does not support inappropriate behaviour and takes strict actions against fake profiles.
 
 """,
-      "image": "assets/images/parking_sthal/parking_sthal.png",
+      "image": "assets/images/call_pik/call_pik.jpg",
       "categories": ["Flutter"],
       "media": [],
       "technologies": [
@@ -373,34 +385,53 @@ Note: Our app does not support inappropriate behaviour and takes strict actions 
           "type": "points",
           "iconStyle": "bullet",
           "items": [
-            "Bug Fixes",
+            "Worked as the Flutter developer responsible for debugging and improving the existing application.",
+            "Fixed UI design, API, and push notification issues.",
+            "Refactored the existing codebase and introduced a structured architecture.",
+            "Implemented MVVM and SOLID principles.",
             "Improved code organization to make debugging and maintenance easier.",
+            "Upgraded Flutter and updated Android/iOS configurations.",
+            "Completed iOS certificates and provisioning profile setup.",
             "Generated production builds and handled store uploads.",
           ]
         }
       ],
+      "challenge":
+          "The major challenge was working with an existing codebase that had poor structure, no consistent architectural pattern, and difficult-to-maintain code. Debugging was complicated because of the way the code was organized. In addition, the application had multiple UI, API, and push notification issues, while its Flutter and Android/iOS configurations required upgrading to work correctly with newer platform requirements.",
+      "approach": [
+        {
+          "type": "points",
+          "iconStyle": "bullet",
+          "items": [
+            "First analyzed and fixed the existing UI, API, and push notification issues.",
+            "Refactored the existing code instead of rebuilding the application from scratch.",
+            "Introduced MVVM architecture for better separation of responsibilities.",
+            "Applied SOLID principles to improve code maintainability.",
+            "Used Provider for state management.",
+            "Reduced overly large code sections and organized functionality into smaller, easier-to-debug units.",
+            "Upgraded Flutter to the latest required version.",
+            "Updated Android and iOS configurations to support the upgraded Flutter version."
+          ]
+        }
+      ],
+      "solution":
+          "The application was transformed from a difficult-to-maintain codebase into a more structured Flutter application with MVVM-based architecture, SOLID-oriented code organization, and Provider state management. Existing UI, API, and push notification problems were fixed, the Flutter and native platform configurations were upgraded, and the application was prepared for production distribution. I also handled the iOS signing requirements by creating certificates and provisioning profiles, generating production builds, and publishing the application to both stores.",
     },
     {
       "title": "Cheerish",
       "description":
-          """Callpik is an communication app where you can talk and provide expert opinion and technical ideas over call. Callpik provides Audio call & Video call option to talk with the Consultants.
+          """Cheerish is an interactive educational quiz and MCQ platform designed for school students from Grades 1 to 12. The app helps students strengthen their academic foundation through chapter-wise practice tests and comprehensive performance analytics.
 
-Feature of Callpik App:
+Features of Cheerish App:
 
-Simple Signup: Download the Callpik app. Enter the Phone number with Country code. For Phone number verification purpose, enter the received OTP. No need for email and other personal information.
+Seamless Student Access: Students log in effortlessly using their mobile number via OTP verification.
 
-Lanuguage: When signing up, just choose the language you want to connect in. The app will then connect you with users who speak the same language, making communication easy and smooth.
+Customized Learning Path: Select grade (1st to 12th standard), choose subjects, and explore chapter-wise quiz modules and mock tests.
 
-Reliable and Secure: Callpik user can connect any other consultant with audio and video call where they can start a conversation. Discuss about Mindfull Sessions, Mental wellness, Emotional wellness, Stress Management and discuss about all your favourite topics related Wellness.
+Instant Results & Ranking: Get immediate test evaluation with detailed breakdown of correct vs. wrong answers, solution explanations, and test ranks.
 
-Blocking Option: Safety is our priority. User can option to block others.
-
-Privacy: Don’t want to reveal your face? Choose an avatar for your profile picture
-
-Note: Our app does not support inappropriate behaviour and takes strict actions against fake profiles.
-
-""",
-      "image": "assets/images/parking_sthal/parking_sthal.png",
+Dedicated Parent Portal: Separate login for parents using email ID to track attendance, monitor subject & chapter-wise marks, view rank history, and review overall progress.""",
+      "image": "assets/images/cheerish/cheerish.jpg",
       "categories": ["Flutter"],
       "media": [],
       "technologies": [
@@ -416,46 +447,18 @@ Note: Our app does not support inappropriate behaviour and takes strict actions 
       "role": "Freelancer",
       "projectType": "Mobile App",
     },
-    {
-      "title": "Listen2Re",
-      "description": """
-Welcome to Listen2RE, where we empower students to learn faster and stress less. Our mission is to enhance reading capacity by providing audiobooks to improve listeners' grasping power and reading speed. We recognized that traditional reading methods can be time-consuming and tedious, which is why we created an audio platform that allows you to learn while on the go, without sacrificing the quality of your education.
-At Listen2RE, we strive to provide you with the best audio content available, including syllabus-specific content, famous publication audiobooks, and daily, weekly current affairs updates, and interviews for preparing for government exams. Additionally, we offer unique sections for meditation and daily motivation to improve the mental health of students.
-Our vision is to make learning more accessible and enjoyable for everyone, regardless of their background or circumstances. We believe that listening to audio books can help you retain information more effectively, reduce stress, and improve your overall well-being. That's why we're committed to making our platform easy to use, affordable, and enjoyable for all of our users.
-Thank you for choosing Listen2RE as your partner in education. We're excited to help you achieve your goals and succeed in life.
-""",
-      "image": "assets/images/parking_sthal/parking_sthal.png",
-      "categories": ["Flutter"],
-      "media": [],
-      "technologies": [
-        "Flutter",
-        "Firebase",
-        "REST API",
-        "Push Notifications",
-        "Razor Pay"
-      ],
-      "github": null,
-      "playStore": null,
-      "appStore": null,
-      "year": "2024",
-      "role": "Freelancer",
-      "projectType": "Mobile App",
-    },
+   
     {
       "title": "Mwanga Hakika Mobile App",
       "description":
           "MHB mobile app is a comprehensive tool designed to provide MHB users with convenient and secure access to their bank accounts via their smartphones.",
-      "image": "assets/images/mhb.png",
+      "image": "assets/images/hakika_banking_app/banking_app.png",
       "categories": ["iPhone", "iPad"],
-      "media": [
-        "assets/images/mhb.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
       "technologies": ["Swift", "iOS SDK", "REST APIs", "CoreData"],
       "github": null,
       "playStore": null,
-      "appStore": "https://apps.apple.com",
+      "appStore": null,
       "year": "2023",
       "role": "Lead Designer",
       "projectType": "Web App",
@@ -494,19 +497,19 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
               "We introduced a modular architecture allowing users to customize their view. By utilizing progressive disclosure, advanced metrics are tucked away but easily accessible, keeping the primary interface clean and focused."
         }
       ],
-      "engineeringChallenges": [
-        {
-          "number": "01",
-          "title": "Offline-First Synchronization",
-          "problem":
-              "Field agents in remote Tanzanian regions frequently experienced network dropouts, leading to data loss during client onboarding and loan origination workflows. A robust queuing mechanism was required to guarantee eventual consistency.",
-          "approach":
-              "Implemented a local SQLite database on the mobile client managed via WatermelonDB for reactive data binding. We engineered a custom sync engine utilizing Redux Saga to orchestrate background tasks, intercepting API calls when offline and queueing them for automatic retry upon network reconnection.",
-          "code":
-              "const syncData = async () => {\n  try {\n    // 1. Pull remote changes\n    const changes = await fetchRemoteChanges();\n    await database.action(async () => {\n      await applyChanges(changes);\n    });\n\n    // 2. Push local queue\n    const localOps = await getQueuedOperations();\n    if (localOps.length > 0) {\n      await pushToRemote(localOps);\n      await clearLocalQueue();\n    }\n  } catch (error) {\n    Logger.error('Sync failed', error);\n  }\n};",
-          "codeLanguage": "javascript"
-        }
-      ],
+      // "engineeringChallenges": [
+      //   {
+      //     "number": "01",
+      //     "title": "Offline-First Synchronization",
+      //     "problem":
+      //         "Field agents in remote Tanzanian regions frequently experienced network dropouts, leading to data loss during client onboarding and loan origination workflows. A robust queuing mechanism was required to guarantee eventual consistency.",
+      //     "approach":
+      //         "Implemented a local SQLite database on the mobile client managed via WatermelonDB for reactive data binding. We engineered a custom sync engine utilizing Redux Saga to orchestrate background tasks, intercepting API calls when offline and queueing them for automatic retry upon network reconnection.",
+      //     "code":
+      //         "const syncData = async () => {\n  try {\n    // 1. Pull remote changes\n    const changes = await fetchRemoteChanges();\n    await database.action(async () => {\n      await applyChanges(changes);\n    });\n\n    // 2. Push local queue\n    const localOps = await getQueuedOperations();\n    if (localOps.length > 0) {\n      await pushToRemote(localOps);\n      await clearLocalQueue();\n    }\n  } catch (error) {\n    Logger.error('Sync failed', error);\n  }\n};",
+      //     "codeLanguage": "javascript"
+      //   }
+      // ],
       "solution": [
         {
           "type": "paragraph",
@@ -533,15 +536,11 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
       "title": "Listen2RE",
       "description":
           "The Audio Learning App that helps you achieve your study goals, your way. No more boring books, no more endless reading - With Listen2RE, you can listen to your favorite books, publications, and current affairs while working out, cooking, or just relaxing. Our platform offers syllabus-specific content, famous publication audiobooks, daily and weekly current affairs updates, and motivational podcasts to help you retain what you learn. Join our community and discover a better way to study",
-      "image": "assets/images/listen2RE.png",
+      "image": "assets/images/listen2re/listen2re.png",
       "categories": ["Flutter"],
-      "media": [
-        "assets/images/listen2RE.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
       "technologies": ["Flutter", "Firebase", "REST API", "Bloc", "AWS"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "github": null,
       "playStore": "https://play.google.com",
       "appStore": "https://apps.apple.com",
       "year": "2023",
@@ -557,92 +556,47 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
           "Adopted the Bloc pattern for robust state management. Leveraged AWS Cloudfront for low-latency audio content delivery and implemented custom caching mechanisms using Hive database.",
       "solution":
           "Developed a custom wrapper around the audio service library to handle background audio notification controls, audio ducking, and lock screen media details, integrated with daily motivate podcasts and real-time updates.",
-      "keyOutcomes":
-          "Achieved a 95% client satisfaction rate, with over 10,000 active app installations. Decreased content load times by 40% using the new cache-ahead strategy.",
-      "whatMakesThisDifferent":
-          "Unlike regular music or general podcast apps, Listen2RE offers syllabus-specific academic audio content synchronized with motivational podcasts tailored specifically for focused learners.",
-      "whatITookFromIt":
-          "Deepened my expertise in mobile audio frameworks, foreground services in Android, iOS audio session categories, and architecting scalable backend endpoints for multimedia delivery."
-    },
+      },
     {
       "title": "Clovemind : Mental Health Care",
       "description":
           "Counselling App to improve mental fitness and well-being.  Feeling anxious, stressed, unhappy or lonely? Unable to effectively process your emotions, thoughts, and feelings? Download Clove Mind online counselling app now for FREE to seek support from trained listeners and therapists anytime, anywhere!",
-      "image": "assets/images/clove1.png",
+      "image": "assets/images/clovemind_care/clovemind_care.png",
       "categories": ["Flutter"],
-      "media": [
-        "assets/images/clove1.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
       "technologies": ["Flutter", "Firebase", "Node.js", "Socket.io"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "github": null,
       "playStore": "https://play.google.com",
       "appStore": null,
       "year": "2022",
       "role": "Full-stack Developer",
       "projectType": "Mental Health App",
-      "backstory":
-          "Mental health care remains inaccessible or stigmatized for millions. Clovemind was built to connect individuals experiencing stress or anxiety with certified therapists and empathetic listeners instantly.",
-      "myRole":
-          "Full-stack Developer responsible for the chat messaging engine, WebRTC integration for secure online therapy calls, and push notification triggers.",
-      "challenge":
-          "Ensuring user anonymity and end-to-end data encryption of sensitive chat sessions to provide a safe space for mental health discussions.",
-      "approach":
-          "Used Flutter for the mobile app, Node.js and Socket.io for real-time messaging, and Firebase for backend authentication.",
-      "solution":
-          "Delivered a lightweight online counselling app featuring real-time encrypted messaging, instant peer listener matching, and structured mood assessment tests.",
-      "keyOutcomes":
-          "Helped over 15,000 users process positive coping strategies with a peak matching time of under 30 seconds for active listeners.",
-      "whatMakesThisDifferent":
-          "Provides double-anonymous pairing where both the user and the listener are anonymous, reducing pressure and encouraging open communication.",
-      "whatITookFromIt":
-          "Learned about WebRTC signaling, WebSocket scaling for high concurrency, and data protection practices for mental health information."
-    },
+     },
     {
       "title": "Clovemind: For Partners",
       "description":
           "A platform that connects you to people going through mental and emotional health issues like stress, anxiety, trauma, relationship issues, work pressure, depression, self-image issues, insomnia, processing negative emotions like anger, boredom, loneliness and enables you to help them through assessment tests and online counselling sessions",
-      "image": "assets/images/clove2.png",
+      "image": "assets/images/clovemind_provider/clovemind_provider.png",
       "categories": ["Flutter"],
-      "media": [
-        "assets/images/clove2.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
       "technologies": ["Flutter", "Firebase", "Node.js", "Socket.io"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "github": null,
       "playStore": null,
       "appStore": null,
       "year": "2022",
       "role": "Mobile App Developer",
       "projectType": "Partner Portal",
-      "backstory":
-          "Following the launch of the main Clovemind application, there was a need for a dedicated dashboard app for listeners and therapists to manage their sessions, view assessments, and track payments.",
-      "myRole":
-          "Mobile App Developer leading the design of scheduling boards, interactive assessment score trackers, and payout modules.",
-      "challenge":
-          "Designing a dashboard that presents complex diagnostic assessment scores cleanly and simply without cluttering the screen.",
-      "approach":
-          "Developed an intuitive navigation grid and interactive graphs utilizing Flutter's custom painters.",
-      "solution":
-          "Created a robust partner console app featuring instant chat requests, calendar scheduling, automated billing statements, and assessment analytics.",
-      "keyOutcomes":
-          "Improved partner response times by 35% and increased session booking efficiency.",
-      "whatMakesThisDifferent":
-          "Tailored specifically for therapy flows with standard diagnostic templates built directly into the UI.",
-      "whatITookFromIt":
-          "Mastered complex state routing, customizable visual graphs, and calendar syncing APIs."
+      
     },
     {
       "title": "Pave",
-      "description": """
-Welcome to Listen2RE, where we empower students to learn faster and stress less. Our mission is to enhance reading capacity by providing audiobooks to improve listeners' grasping power and reading speed. We recognized that traditional reading methods can be time-consuming and tedious, which is why we created an audio platform that allows you to learn while on the go, without sacrificing the quality of your education.
-At Listen2RE, we strive to provide you with the best audio content available, including syllabus-specific content, famous publication audiobooks, and daily, weekly current affairs updates, and interviews for preparing for government exams. Additionally, we offer unique sections for meditation and daily motivation to improve the mental health of students.
-Our vision is to make learning more accessible and enjoyable for everyone, regardless of their background or circumstances. We believe that listening to audio books can help you retain information more effectively, reduce stress, and improve your overall well-being. That's why we're committed to making our platform easy to use, affordable, and enjoyable for all of our users.
-Thank you for choosing Listen2RE as your partner in education. We're excited to help you achieve your goals and succeed in life.
-""",
-      "image": "assets/images/parking_sthal/parking_sthal.png",
+      "description":
+          """Pave is the first ever athlete marketplace built to help aspiring school athletes unlock their full potential — on and off the field.
+
+Whether you dream of playing college sports, earning NIL deals, or getting guidance and mentorship from someone who's already walked your path, Pave connects you directly with college & professional athletes and sports development experts who can help you get there.
+
+Through 1:1 video calls, live messaging, young athletes and parents gain access to personalized guidance - gaining the feedback, clarity, and exposure needed to navigate recruiting, athlete development, and NIL opportunities with confidence.""",
+      "image": "assets/images/pave/pave.png",
       "categories": ["Flutter"],
       "media": [],
       "technologies": [
@@ -663,50 +617,28 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
       "title": "Request Management",
       "description":
           "Request management system help the admin & the users to share the requests from area representatives.  It helps the secretary to manage there work, plan there day & keep with the admin.",
-      "image": "assets/images/rm.png",
+      "image": "assets/images/request_management/rm.png",
       "categories": ["Flutter"],
-      "media": [
-        "assets/images/rm.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
       "technologies": ["Flutter", "Laravel", "MySQL", "Bloc"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "github": null,
       "playStore": null,
       "appStore": null,
       "year": "2021",
       "role": "Lead Developer",
       "projectType": "Management App",
-      "backstory":
-          "Local administration systems and representatives struggled with tracking infrastructure requests, leading to unresolved complaints and operational overhead.",
-      "myRole":
-          "Lead Developer in charge of designing the administrative database schema, user roles, and request workflow system.",
-      "challenge":
-          "Creating a hierarchy where requests flow from representatives to secretaries to admin, with strict access and action policies.",
-      "approach":
-          "Used Laravel for the API panel and Flutter for the mobile client, utilizing state management to handle request transitions.",
-      "solution":
-          "Created a multi-tenant role-based system for submitting, categorizing, mapping, and resolving public requests.",
-      "keyOutcomes":
-          "Deployed in 5 municipal districts, resolving over 5,000 public infrastructure requests within the first six months.",
-      "whatMakesThisDifferent":
-          "Includes automated GPS tagging and status notifications that keep all parties informed in real-time.",
-      "whatITookFromIt":
-          "Deepened my knowledge of multi-role authentication systems, database indexing, and offline request queuing."
+      
     },
     {
       "title": "AI-Octopus",
       "description":
           "Social Media Management CRM Software, CRM Tool.  Aioctopus offers Social Media Software and management tool that enable organisations to increase sales, loyalty program, easy ticketing system and fast accurate response.",
-      "image": "assets/images/aioctopus.png",
+      "image": "assets/images/ai_octopus/ai_octopus.png",
       "categories": ["Flutter"],
-      "media": [
-        "assets/images/aioctopus.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
+      "mediaHasBezel": true,
       "technologies": ["Flutter", "Node.js", "MongoDB", "Websockets"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "github": null,
       "playStore": null,
       "appStore": null,
       "year": "2021",
@@ -733,15 +665,11 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
       "title": "News Fetcher",
       "description":
           "Social Media Monitoring Tool, News Fetch, Social Media Aggregator, Scraping Tool.  Newsfetcher tool offers advanced media monitoring your mentions carefully on any news paper, forums, blogs and any Social media platform.",
-      "image": "assets/images/newsfetcher.png",
+      "image": "assets/images/newsfetcher/newsfetcher.png",
       "categories": ["Flutter"],
-      "media": [
-        "assets/images/newsfetcher.png",
-        "https://picsum.photos/800/450?1",
-        "https://picsum.photos/800/450?2"
-      ],
+      "media": [],
       "technologies": ["Flutter"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "github": null,
       "playStore": null,
       "appStore": null,
       "year": "2020",
@@ -756,20 +684,33 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
       "whatMakesThisDifferent": "",
       "whatITookFromIt": ""
     },
+    
     {
-      "title": "to Share",
+      "title": "Tix Alert",
       "description":
-          "Social Media Monitoring Tool, News Fetch, Social Media Aggregator, Scraping Tool.  Newsfetcher tool offers advanced media monitoring your mentions carefully on any news paper, forums, blogs and any Social media platform.",
-      "image": "assets/images/to_share/to_share.png",
+          "A parking intelligence app that helps drivers avoid tickets by identifying restricted zones, disabled parking, and available parking spots in real-time across urban areas.",
+      "image": "assets/images/tix_alert/tix_alert.png",
       "categories": ["iOS"],
       "media": [],
-      "technologies": ["Swift"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "keyFeatures": [
+        "Real-time parking zone visualization (color-coded maps)",
+        "Voice-guided parking alerts",
+        "User-reported violation hotspots",
+        "Meter reminder notifications",
+      ],
+      "technologies": [
+        "Flutter (Cross-platform)",
+        "Firebase Realtime Database",
+        "Google Maps API",
+        "Geofencing API",
+        "Stripe Payment Integration",
+      ],
+      "github": null,
       "playStore": null,
       "appStore": null,
-      "year": "2016",
+      "year": "2017",
       "role": "Software Developer",
-      "projectType": "Alarm App",
+      "projectType": "Parking App",
       "backstory": "",
       "myRole": "",
       "challenge": "",
@@ -778,21 +719,25 @@ Thank you for choosing Listen2RE as your partner in education. We're excited to 
       "keyOutcomes": "",
       "whatMakesThisDifferent": "",
       "whatITookFromIt": ""
-    },
-    {
-      "title": "Tix Alert",
+    },{
+      "title": "to Share",
       "description":
-          "Social Media Monitoring Tool, News Fetch, Social Media Aggregator, Scraping Tool.  Newsfetcher tool offers advanced media monitoring your mentions carefully on any news paper, forums, blogs and any Social media platform.",
-      "image": "assets/images/tix_alert/tix_alert.png",
+          "This app helps to share the play time or usage time equally between the kids or teenage who interested to share usage of one IPAD/IPHONE.",
+      "image": "assets/images/to_share/to_share.png",
       "categories": ["iOS"],
       "media": [],
-      "technologies": ["Objective C"],
-      "github": "https://github.com/shankaranarayanasharma",
+      "keyFeatures": [
+        "Time sharing",
+        "Usage tracking",
+        "Parental controls",
+      ],
+      "technologies": ["iOS", "Swift", "Parental Controls", "Time Management"],
+      "github": null,
       "playStore": null,
       "appStore": null,
-      "year": "2017",
+      "year": "2016",
       "role": "Software Developer",
-      "projectType": "Parking App",
+      "projectType": "Alarm App",
       "backstory": "",
       "myRole": "",
       "challenge": "",

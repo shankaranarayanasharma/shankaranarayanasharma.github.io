@@ -7,7 +7,7 @@ class AppConstants {
   static const String github = "https://github.com/shankaranarayanasharma";
   static const String twitter = "https://twitter.com";
   static const String resume =
-      "https://docs.google.com/document/d/1bbiD__qyN593g120H-atGKBv0mgIdb52/edit?usp=sharing&ouid=110991434288520766971&rtpof=true&sd=true";
+      "https://docs.google.com/document/d/18KEp3UklqCoXKhoZ3z12AB-2b1ykh6_t/edit?usp=share_link&ouid=107844638571705457809&rtpof=true&sd=true";
 
   static const String email = "shankaranarayanasharma@gmail.com";
   static const String phone = "+91 9962181614";
