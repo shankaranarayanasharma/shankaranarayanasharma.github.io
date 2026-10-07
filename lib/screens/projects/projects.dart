@@ -83,6 +83,32 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   ),
               ],
             ),
+            // On mobile: show the toggle button below the header, full-width
+            if (Responsive.isMobileLarge(context)) ...
+              [
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: _viewModel.toggleShowAll,
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: primaryColor, width: 1),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      _viewModel.showAll ? "View All →" : "View Less ←",
+                      style: const TextStyle(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             const SizedBox(height: defaultPadding),
             Builder(
               builder: (context) {
@@ -101,7 +127,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   aspect = 1.1;
                 } else {
                   crossCount = 1;
-                  aspect = 1.15;
+                  aspect = 0.95;
                 }
 
                 return ProjectGridView(

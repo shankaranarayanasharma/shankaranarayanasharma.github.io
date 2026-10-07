@@ -34,21 +34,18 @@ class HeroBanner extends StatelessWidget {
         Positioned.fill(
           child: HeroBannerBackground(imagePath: project.image),
         ),
-        ConstrainedBox(
-          constraints: BoxConstraints(minHeight: minHeight),
-          child: Column(
+        Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: hPad, vertical: 18),
+                padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 18),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [GlassCloseButton(onClose: onClose)],
                 ),
               ),
-              SizedBox(height: isMobile ? 40 : 80),
+              const SizedBox(height: 12),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: hPad),
                 child: Column(
@@ -114,21 +111,13 @@ class HeroBanner extends StatelessWidget {
                       ],
                     ),
                     QuickActionLinkButtons(project: project),
+                    const SizedBox(height: 16),
                   ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              Padding(
-                padding: EdgeInsets.only(right: hPad, bottom: 12),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: ScrollDownDot(onTap: onScrollDown),
                 ),
               ),
               HeroBannerMetaInfo(project: project, isMobile: isMobile),
             ],
           ),
-        ),
       ],
     );
   }

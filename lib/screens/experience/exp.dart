@@ -54,27 +54,59 @@ class _ExperienceScreenState extends State<ExperienceScreen> {
                 ],
               ),
             ),
-            const SizedBox(width: defaultPadding),
-            if (!Responsive.isMobileLarge(context))
-              ElevatedButton(
+            if (!Responsive.isMobileLarge(context)) ...
+              [
+                const SizedBox(width: defaultPadding),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      showAll = !showAll;
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: defaultPadding * 2,
+                          vertical: defaultPadding),
+                      backgroundColor: Colors.transparent),
+                  child: Text(
+                    showAll ? "View Less <-" : "View All ->",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+          ],
+        ),
+        // On mobile: show the toggle button below the header, full-width
+        if (Responsive.isMobileLarge(context)) ...
+          [
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
                 onPressed: () {
                   setState(() {
                     showAll = !showAll;
                   });
                 },
-                style: TextButton.styleFrom(
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: defaultPadding * 2,
-                        vertical: defaultPadding),
-                    backgroundColor: Colors.transparent),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: primaryColor, width: 1),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 child: Text(
-                  showAll ? "View Less <-" : "View All ->",
-                  style: const TextStyle(color: Colors.white),
+                  showAll ? "View Less ←" : "View All →",
+                  style: const TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
                 ),
               ),
+            ),
           ],
-        ),
         const SizedBox(height: defaultPadding),
         Column(
           children: List.generate(

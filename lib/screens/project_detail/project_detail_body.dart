@@ -102,21 +102,13 @@ class _ProjectDetailsBodyState extends State<ProjectDetailsBody> {
             project: _currentProject,
             onClose: widget.onClose,
             isMobile: effectiveIsMobile,
-            onScrollDown: () {
-              if (_scrollController.hasClients) {
-                final targetOffset = effectiveIsMobile ? 380.0 : 480.0;
-                _scrollController.animateTo(
-                  targetOffset,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOutCubic,
-                );
-              }
-            },
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: effectiveIsMobile ? 18.0 : 48.0,
-              vertical: 36.0,
+            padding: EdgeInsets.only(
+              left: effectiveIsMobile ? 18.0 : 48.0,
+              right: effectiveIsMobile ? 18.0 : 48.0,
+              top: 24.0,
+              bottom: 36.0,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

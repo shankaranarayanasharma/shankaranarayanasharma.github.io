@@ -114,32 +114,33 @@ class _RecommendationsState extends State<Recommendations> {
           ),
           const SizedBox(height: 32),
           // Custom horizontal progress/scroll indicator bar
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 48), // Indent to match reference alignment
-                child: Row(
-                  children: [
-                    Container(
-                      width: 180,
-                      height: 3,
-                      decoration: BoxDecoration(
-                        color: primaryColor, // Yellow/gold progress track
-                        borderRadius: BorderRadius.circular(1.5),
-                      ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final totalWidth = constraints.maxWidth;
+              // Active portion is 60% of total track width
+              final activeWidth = totalWidth * 0.6;
+              final inactiveWidth = totalWidth * 0.4;
+              return Row(
+                children: [
+                  Container(
+                    width: activeWidth,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(1.5),
                     ),
-                    Container(
-                      width: 120,
-                      height: 3,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2B2B2D), // Inactive dark track
-                        borderRadius: BorderRadius.circular(1.5),
-                      ),
+                  ),
+                  Container(
+                    width: inactiveWidth,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2B2B2D),
+                      borderRadius: BorderRadius.circular(1.5),
                     ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
