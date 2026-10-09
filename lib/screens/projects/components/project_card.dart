@@ -85,10 +85,11 @@ class _ProjectCardState extends State<ProjectCard> {
                       Positioned(
                         top: 12,
                         left: 12,
-                        child: Row(
+                        child: Wrap(
+                          spacing: 6,
+                          runSpacing: 4,
                           children: widget.blog.categories.map((category) {
                             return Container(
-                              margin: const EdgeInsets.only(right: 6),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
@@ -118,37 +119,31 @@ class _ProjectCardState extends State<ProjectCard> {
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                widget.blog.title,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                widget.blog.description,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.white60,
-                                  height: 1.4,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                        Text(
+                          widget.blog.title,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Expanded(
+                          child: Text(
+                            widget.blog.description,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.white60,
+                              height: 1.4,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
+                        const SizedBox(height: 4),
                         Row(
                           children: [
                             Text(

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="title" content="Shankaranarayana Sharma - Mobile Developer">
+  <meta name="description"
+    content="Shankaranarayana Sharma - Flutter Developer, Speaker, Web Enthusiast, and Tech Geek. Engineer with a passion for creating clean and user-friendly UI/UX using Flutter.">
+  <meta property="keywords"
+    content="Shankaranarayana Sharma, Chrisbin, shankaranarayanasharma, binaryghost, BinaryGhost, Binary Ghost, binary.ghost, Chrisbin Flutter, Chrisbin India, Software, gdg, developer community, developer communities,developer, developers,programmer, programmers, programming, software engineering, software engineer, software engineers, coding, Developer meetup,Developer meetups, developer meetup, hackathons,codelabs, study jam, study jams, devmelas,Developer event, Developer events, Virtual developer event, Virtual developer events" />
+  <meta name="theme-color" content="#0C0C0C">
+  <meta name="google-site-verification" content="XERWL9IS15dJs9Mpt_b9cUR1UR3BXr3WxrsNlSLIrJY" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shankaranarayanasharma.github.io/">
+  <meta property="og:title" content="Shankaranarayana Sharma - Mobile Developer">
+  <meta property="og:description"
+    content="Shankaranarayana Sharma - Flutter Developer, Speaker, Web Enthusiast, and Tech Geek. Engineer with a passion for creating clean and user-friendly UI/UX using Flutter.">
+  <meta property="og:image" content="https://shankaranarayanasharma.github.io/assets/images/chrisbinIndex.jpg">
+
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://shankaranarayanasharma.github.io/">
+  <meta property="twitter:title" content="Shankaranarayana Sharma - Mobile Developer">
+  <meta property="twitter:description"
+    content="Shankaranarayana Sharma - Flutter Developer, Speaker, Web Enthusiast, and Tech Geek. Engineer with a passion for creating clean and user-friendly UI/UX using Flutter.">
+  <meta property="twitter:image" content="https://shankaranarayanasharma.github.io/assets/images/chrisbinIndex.jpg">
+
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Shankaranarayana Sharma - Mobile Developer">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <title>Shankaranarayana Sharma - Mobile Developer</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = '"2362234927"';
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <!-- <script src="flutter.js" defer></script> -->
+</head>
+
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+
+
+
+
+  <script>
+    window.addEventListener('load', function (ev) {
+      // Download main.dart.js
+      { { flutter_js } }
+      { { flutter_build_config } }
+
+      const loading = document.createElement('div');
+      document.body.appendChild(loading);
+      loading.textContent = "Loading Entrypoint...";
+      _flutter.loader.load({
+        onEntrypointLoaded: async function (engineInitializer) {
+          loading.textContent = "Initializing engine...";
+          const appRunner = await engineInitializer.initializeEngine();
+
+          loading.textContent = "Running app...";
+          await appRunner.runApp();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

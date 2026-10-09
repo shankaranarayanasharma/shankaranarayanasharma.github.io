@@ -110,24 +110,24 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 ),
               ],
             const SizedBox(height: defaultPadding),
-            Builder(
-              builder: (context) {
-                final width = MediaQuery.of(context).size.width;
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final width = constraints.maxWidth;
                 int crossCount = 2;
-                double aspect = 1.1;
+                double aspect = 0.9;
 
-                if (width > 1400) {
+                if (width > 1050) {
                   crossCount = 4;
-                  aspect = 0.98;
-                } else if (width > 950) {
+                  aspect = 0.82;
+                } else if (width > 750) {
                   crossCount = 3;
-                  aspect = 1.02;
-                } else if (width > 600) {
+                  aspect = 0.85;
+                } else if (width > 500) {
                   crossCount = 2;
-                  aspect = 1.1;
+                  aspect = 0.9;
                 } else {
                   crossCount = 1;
-                  aspect = 0.95;
+                  aspect = 1.05;
                 }
 
                 return ProjectGridView(
