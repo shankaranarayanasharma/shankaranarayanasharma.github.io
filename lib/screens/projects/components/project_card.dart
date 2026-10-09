@@ -130,20 +130,19 @@ class _ProjectCardState extends State<ProjectCard> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
-                        Expanded(
-                          child: Text(
-                            widget.blog.description,
-                            style: const TextStyle(
-                              fontSize: 11,
-                              color: Colors.white60,
-                              height: 1.4,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                        const SizedBox(height: 6),
+                        Text(
+                          widget.blog.description,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.white60,
+                            height: 1.4,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 16),
+                        const Spacer(),
                         Row(
                           children: [
                             Text(

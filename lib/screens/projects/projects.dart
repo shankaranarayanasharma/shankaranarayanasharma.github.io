@@ -118,13 +118,13 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
                 if (width > 1050) {
                   crossCount = 4;
-                  aspect = 0.82;
+                  aspect = 0.88;
                 } else if (width > 750) {
                   crossCount = 3;
-                  aspect = 0.85;
+                  aspect = 0.92;
                 } else if (width > 500) {
                   crossCount = 2;
-                  aspect = 0.9;
+                  aspect = 0.95;
                 } else {
                   crossCount = 1;
                   aspect = 1.05;
